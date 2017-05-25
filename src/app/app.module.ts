@@ -8,6 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { TestCanvasComponent } from './test-canvas/test-canvas.component';
 
 import { RouterModule, Routes } from '@angular/router';
+import { TestItemComponent } from './test-item/test-item.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -20,7 +21,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    TestCanvasComponent
+    TestCanvasComponent,
+    TestItemComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
