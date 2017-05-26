@@ -1,8 +1,6 @@
+import { TestCanvas } from './test-canvas';
 
-export interface ITestCanvas {
-    id: string;
-}
 export interface ITestCanvasService {
-    GetAvailableTests(userId: string): ITestCanvas[];
-    GetTestById(testId: string): ITestCanvas;
+    getAvailableTests(userId: string): TestCanvas[];
+    getTestById(testId: string): TestCanvas;
 }
