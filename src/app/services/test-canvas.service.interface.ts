@@ -1,4 +1,4 @@
-import { TestCanvas } from './test-canvas';
+import { TestCanvas } from '../model/test-canvas';
 
 export interface ITestCanvasService {
     getAvailableTests(userId: string): TestCanvas[];

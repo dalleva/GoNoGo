@@ -2,13 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
-import { AppComponent } from './app/app.component';
-import { HomeComponent } from './home/home.component';
-import { TestCanvasComponent } from './test-canvas/test-canvas.component';
-
 import { RouterModule, Routes } from '@angular/router';
-import { TestItemComponent } from './test-item/test-item.component';
+
+import { AppComponent } from './components/app/app.component';
+import { HomeComponent } from './components/home/home.component';
+import { TestCanvasComponent } from './components/test-canvas/test-canvas.component';
+import { TestItemComponent } from './components/test-item/test-item.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

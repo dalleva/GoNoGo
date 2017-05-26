@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { TestItem } from './test-item.interface';
-import { TestCanvas } from './test-canvas';
+import { TestItem } from '../model/test-item.interface';
+import { TestCanvas } from '../model/test-canvas';
 import { ITestCanvasService } from './test-canvas.service.interface';
 
 const MOCK_ITEMS1: TestItem[] = [
