@@ -11,6 +11,8 @@ export const GlobalVariables = Object.freeze({
             clickToClose: true,
             timeOut: 5000,
             lastOnBottom: true
-        } as ToastOptions)
+        } as ToastOptions),
+
+    IMAGES_PATH: 'assets/images/'
 
 });
