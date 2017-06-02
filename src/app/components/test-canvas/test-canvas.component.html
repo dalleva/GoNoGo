@@ -1,3 +1,13 @@
 <article class="content">
-    Hello hello
+    <div class="col-md" (click)="itemClicked($event)">
+        Hello hello {{CurrentTestItem?.id}}
+    </div>
+
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col text-center">
+                <img *ngIf="canDisplayImage()" [src]="CurrentImageUrl" alt="{{CurrentTestItem?.image.alt}}" class="img-fluid rounded" />
+            </div>
+        </div>
+    </div>
 </article>
