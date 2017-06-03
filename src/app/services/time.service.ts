@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { RandomnessHelper } from 'app/helpers/random';
+import { Stopwatch } from 'app/helpers/stopwatch';
 
+//Provides an abstraction layer over timeouts and intervals
 @Injectable()
 export class TimeService {
 
@@ -28,18 +30,8 @@ export class TimeService {
         return TimeService.Timeout(delay, onDone);
     }
 
-    public static Timer(): void {
+    public static CreateTimer(): Stopwatch {
+        return new Stopwatch();
     }
 
-    // TODO: Create a timer which can be paused and resumed, I remember doing this once... GB
-
 }
-
-/*export interface Timer {
-    secondsSpent: number;
-    start(): void;
-    pause(): void;
-    resume(): void;
-}
-
-class Timer implements Timer*/

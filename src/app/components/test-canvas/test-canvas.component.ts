@@ -13,7 +13,7 @@ import { AnswerState } from 'app/model/answer-state.enum';
     selector: 'app-test-canvas',
     templateUrl: './test-canvas.component.html',
     styleUrls: ['./test-canvas.component.css'],
-    providers: [TestCanvasService, TimeService]
+    providers: [TestCanvasService]
 })
 export class TestCanvasComponent implements OnInit {
     private readonly startCountdown = 3;
@@ -25,12 +25,14 @@ export class TestCanvasComponent implements OnInit {
 
     @HostListener('window:keydown', ['$event'])
     keyboardInput(event: KeyboardEvent) {
-        console.log('keyboard', event);
         if (event.keyCode === this.spaceKey) {
-            // TODO: Trigger next event depending on state machine
             event.preventDefault();
             this.executeGoCommand();
         }
+    }
+
+    public itemClicked(event: MouseEvent): void {
+        this.executeGoCommand();
     }
 
     constructor(
@@ -71,11 +73,6 @@ export class TestCanvasComponent implements OnInit {
         TimeService.Countdown(this.startCountdown, countdownDone, countdownUpdate);
     }*/
 
-    public itemClicked(event: MouseEvent): void {
-        console.log('clicked', event);
-        this.executeGoCommand();
-    }
-
     public canDisplayImage(): boolean {
         return !this.isInTransition && this.testCanvas !== null && this.testCanvas !== undefined; // TODO: Check actual image url
     }
@@ -110,7 +107,7 @@ export class TestCanvasComponent implements OnInit {
             ? AnswerState.Valid
             : this.testItems.getCurrent().answer = AnswerState.Invalid;
 
-        this.runningTimer = TimeService.Timeout(250, () => {
+        this.runningTimer = TimeService.Timeout(750, () => {
             this.transitionToNextItem();
         });
     }
@@ -127,19 +124,28 @@ export class TestCanvasComponent implements OnInit {
     private displayNextItem(): void {
         clearTimeout(this.runningTimer);
         if (this.testItems.hasNext()) {
-            let item = this.testItems.next();
+            const item = this.testItems.next();
             this.runningTimer = TimeService.SemiRandomTimeout(2000, 2500, () => {
                 this.displaySuccess(!item.go); // User made it to the end, check if he was supposed to click
             });
+        }
+        else {
+            this.endOfTest();
         }
     }
 
     private displayFirstItem(): void {
         if (this.testItems.hasNext()) {
-            let item = this.testItems.getCurrent();
-            this.runningTimer = TimeService.SemiRandomTimeout(4000, 5000, () => {
+            const item = this.testItems.getCurrent();
+            this.runningTimer = TimeService.SemiRandomTimeout(2000, 2500, () => {
                 this.displaySuccess(!item.go);
             });
         }
+    }
+
+    private endOfTest(): void {
+        console.log('end of test');
+        this.isInTransition = true;
+        //TODO: Navigate to results page
     }
 }
