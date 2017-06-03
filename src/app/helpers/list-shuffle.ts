@@ -1,4 +1,4 @@
-//Source : https://basarat.gitbooks.io/algorithms/content/docs/shuffling.html
+import { RandomnessHelper } from 'app/helpers/random';
 
 export class ListShuffleHelper {
 
@@ -16,7 +16,7 @@ export class ListShuffleHelper {
             // choose a random not-yet-placed item to place there
             // must be an item AFTER the current item, because the stuff
             // before has all already been placed
-            const randomChoiceIndex = ListShuffleHelper.getRandom(i, array.length - 1);
+            const randomChoiceIndex = RandomnessHelper.getRandomInt(i, array.length - 1);
 
             // place our random choice in the spot by swapping
             [array[i], array[randomChoiceIndex]] = [array[randomChoiceIndex], array[i]];
@@ -25,7 +25,4 @@ export class ListShuffleHelper {
         return array;
     }
 
-    private static getRandom(min: number, max: number): number {
-        return Math.floor(Math.random() * (max - min) + min);
-    }
 }
