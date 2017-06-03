@@ -24,7 +24,10 @@
             "./assets/modular-admin-html-1.1.0/custom.css",
             "styles.css"
         ],
-        "scripts": [],
+        "scripts": [
+            "./assets/modular-admin-html-1.1.0/js/vendor.js",
+            "./assets/modular-admin-html-1.1.0/js/app.js"
+        ],
         "environmentSource": "environments/environment.ts",
         "environments": {
             "dev": "environments/environment.ts",
