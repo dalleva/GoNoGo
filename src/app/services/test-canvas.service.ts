@@ -2,19 +2,20 @@ import { Injectable } from '@angular/core';
 import { TestItem } from '../model/test-item.interface';
 import { TestCanvas } from '../model/test-canvas';
 import { ITestCanvasService } from './test-canvas.service.interface';
+import { AnswerState } from 'app/model/answer-state.enum';
 
 const MOCK_ITEMS1: TestItem[] = [
-    { id: 'guid1', go: false, image: { url: 'poutine.png', alt: '' } },
-    { id: 'guid2', go: true, image: { url: 'wheat-farm.jpg', alt: '' } },
-    { id: 'guid3', go: true, image: { url: 'wheat-farm.jpg', alt: '' } },
-    { id: 'guid4', go: false, image: { url: 'poutine.png', alt: '' } },
-    { id: 'guid5', go: false, image: { url: 'poutine.png', alt: '' } }
+    { id: 'guid1', go: false, image: { url: 'poutine.png', alt: '' }, answer: AnswerState.Unknown },
+    { id: 'guid2', go: true, image: { url: 'wheat-farm.jpg', alt: '' }, answer: AnswerState.Unknown },
+    { id: 'guid3', go: true, image: { url: 'wheat-farm.jpg', alt: '' }, answer: AnswerState.Unknown },
+    { id: 'guid4', go: false, image: { url: 'poutine.png', alt: '' }, answer: AnswerState.Unknown },
+    { id: 'guid5', go: false, image: { url: 'poutine.png', alt: '' }, answer: AnswerState.Unknown }
 ];
 
 const MOCK_ITEMS2: TestItem[] = [
-    { id: 'guid6', go: false, image: { url: 'poutine.png', alt: '' } },
-    { id: 'guid7', go: true, image: { url: 'wheat-farm.jpg', alt: '' } },
-    { id: 'guid8', go: false, image: { url: 'poutine.png', alt: '' } }
+    { id: 'guid6', go: false, image: { url: 'poutine.png', alt: '' }, answer: AnswerState.Unknown },
+    { id: 'guid7', go: true, image: { url: 'wheat-farm.jpg', alt: '' }, answer: AnswerState.Unknown },
+    { id: 'guid8', go: false, image: { url: 'poutine.png', alt: '' }, answer: AnswerState.Unknown }
 ];
 
 const MOCK_TEST_CANVAS1: TestCanvas = new TestCanvas({id: 'testId1', name: 'Le premier test', datePublished: new Date()});
