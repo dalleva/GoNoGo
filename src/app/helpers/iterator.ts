@@ -6,10 +6,6 @@ export interface Iterator<T> {
     hasNext(): boolean;
 }
 
-/*export interface Aggregator<T> {
-    createIterator(): Iterator<T>;
-}*/
-
 export class CollectionIterator<T> implements Iterator<T> {
     private collection: T[] = [];
     private position = 0;
@@ -27,23 +23,12 @@ export class CollectionIterator<T> implements Iterator<T> {
 
     public next(): T {
         // Error handling is left out
+        this.position++;
         const result = this.collection[this.position];
-        this.position += 1;
         return result;
     }
 
     public hasNext(): boolean {
-        return this.position < this.collection.length;
+        return this.position < this.collection.length - 1;
     }
 }
-
-/*export class IterableList<T> implements Aggregator<T> {
-    private collection: T[] = [];
-
-    constructor(collection: T[]) {
-        this.collection = collection;
-    }
-    public createIterator(): Iterator<T> {
-        return new CollectionIterator<T>(this.collection);
-    }
-}*/
