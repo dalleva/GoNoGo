@@ -1,7 +1,7 @@
 <div class="main-wrapper">
-    <div class="app" id="app">
+    <div class="app" id="app" [class.sidebar-closed]="ForceCloseSidebar">
         <header class="header">
-            <div class="header-block header-block-collapse">
+            <div class="header-block header-block-collapse hidden-lg-up">
                 <button class="collapse-btn" id="sidebar-collapse-btn">
     			    <i class="fa fa-bars"></i>
     		    </button>
@@ -13,13 +13,13 @@
                         <div class="underline"></div>
                     </div>
                 </form>
-            </div>
-            <div class="header-block header-block-buttons">
-                <a href="https://github.com/modularcode/modular-admin-html/releases/download/v1.0.1/modular-admin-html-1.0.1.zip" class="btn btn-sm header-btn">
-                    <i class="fa fa-cloud-download"></i> <span>Download .zip</span>
-                </a>
             </div>-->
-            <div class="header-block header-block-nav">
+            <div class="header-block header-block-buttons">
+                <button *ngFor="let button of HeaderButtons" [@fadeInOut] class="btn header-btn btn-sm">
+                    <i *ngIf="button.icon" [class]="button.icon"></i> <span>{{button.content}}</span>
+                </button>
+            </div>
+            <div class="header-block header-block-nav" [class.header-block-disabled]="HideHeaderData">
                 <ul class="nav-profile">
                     <li class="notifications new">
                         <a href="" data-toggle="dropdown"> <i class="fa fa-bell-o"></i>

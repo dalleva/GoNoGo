@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TestCanvasService } from 'app/services/test-canvas.service';
 import { TestCanvas } from 'app/model/test-canvas';
@@ -8,6 +8,7 @@ import { GlobalVariables } from 'global';
 import { Iterator, CollectionIterator } from 'app/helpers/iterator';
 import { ListShuffleHelper } from 'app/helpers/list-shuffle';
 import { AnswerState } from 'app/model/answer-state.enum';
+import { UiDispatcherService } from 'app/services/ui-dispatcher.service';
 
 @Component({
     selector: 'app-test-canvas',
@@ -15,7 +16,7 @@ import { AnswerState } from 'app/model/answer-state.enum';
     styleUrls: ['./test-canvas.component.css'],
     providers: [TestCanvasService]
 })
-export class TestCanvasComponent implements OnInit {
+export class TestCanvasComponent implements OnInit, OnDestroy {
     private readonly startCountdown = 3;
     private readonly spaceKey = 32;
     private isInTransition = false;
@@ -37,12 +38,20 @@ export class TestCanvasComponent implements OnInit {
 
     constructor(
         private testCanvasService: TestCanvasService,
+        private uiDispatcherSevice: UiDispatcherService,
         private route: ActivatedRoute
     ) { }
 
-    public ngOnInit() {
+    public ngOnInit(): void {
+        this.uiDispatcherSevice.setDistractionFreeMode();
+        this.uiDispatcherSevice.addHeaderButton({ content: 'Pause', icon: 'fa fa-pause' });
+        this.uiDispatcherSevice.addHeaderButton({ content: 'Cancel', icon: 'fa fa-times' });
         const testId = this.route.snapshot.paramMap.get('id');
         this.testCanvasService.getTestById(testId).then(this.initializeTest);
+    }
+
+    public ngOnDestroy(): void {
+        this.uiDispatcherSevice.setDefault();
     }
 
     public get CurrentTestItem(): TestItem {

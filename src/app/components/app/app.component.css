@@ -1,0 +1,39 @@
+/* Sidebar */
+.sidebar-closed .sidebar {
+    position: fixed;
+    left: -230px;
+}
+
+.sidebar-closed.app {
+    padding-left: 0;
+}
+
+.sidebar-closed .header {
+    left: 0px;
+}
+
+.sidebar-closed .footer {
+    left: 0px;
+}
+
+/* Header */
+.header .header-block-collapse {
+    padding-left: 5px;
+}
+
+.header .header-block {
+    -webkit-transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.header .header-block.header-block-disabled {
+    pointer-events: none;
+    filter: alpha(opacity=40);
+    opacity: 0.4;
+}
+
+/* Footer */
+.footer {
+    -webkit-transition: left 0.3s ease;
+    transition: left 0.3s ease;
+}

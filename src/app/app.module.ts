@@ -13,6 +13,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 
 import { SimpleNotificationsModule, PushNotificationsModule } from 'angular2-notifications';
 
+import { UiDispatcherService } from 'app/services/ui-dispatcher.service';
+
 const appRoutes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
@@ -36,7 +38,7 @@ const appRoutes: Routes = [
         BrowserAnimationsModule,
         SimpleNotificationsModule, PushNotificationsModule
     ],
-    providers: [],
+    providers: [UiDispatcherService],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
