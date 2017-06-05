@@ -32,6 +32,12 @@
     opacity: 0.4;
 }
 
+@media (max-width: 767px) {
+    .header .header-block-nav {
+        padding-right: 5px;
+    }
+}
+
 /* Footer */
 .footer {
     -webkit-transition: left 0.3s ease;
