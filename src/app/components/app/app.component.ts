@@ -14,12 +14,13 @@ import { HeaderDataState } from 'app/model/header-data-state.enum';
     providers: [NotificationsService],
     animations: [
         trigger('fadeInOut', [
+            //TODO: Restablish animation delay to 300ms, only when not swaping buttons (states?)
             transition(':enter', [   // :enter is alias to 'void => *'
                 style({ opacity: 0 }),
-                animate(300, style({ opacity: 1 }))
+                animate(0, style({ opacity: 1 }))
             ]),
             transition(':leave', [   // :leave is alias to '* => void'
-                animate(300, style({ opacity: 0 }))
+                animate(0, style({ opacity: 0 }))
             ])
         ])
     ]
