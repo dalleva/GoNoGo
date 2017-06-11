@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RandomnessHelper } from 'app/helpers/random';
-import { Stopwatch } from 'app/helpers/stopwatch';
+import { Stopwatch, CountdownTimer } from 'app/helpers/stopwatch';
 
 //Provides an abstraction layer over timeouts and intervals
 @Injectable()
@@ -21,17 +21,22 @@ export class TimeService {
         }, 1000);
     }
 
-    public static Timeout(milliseconds: number, onDone: Function): number {
-        return setTimeout(onDone, milliseconds);
+    public static Timeout(milliseconds: number, onDone: Function): CountdownTimer {
+        const t = this.CreateCountdownTimer(milliseconds);
+        t.on('done', (time: number) => {
+            onDone();
+        });
+        t.start();
+        return t;
     }
 
-    public static SemiRandomTimeout(minimum: number, maximum: number, onDone: Function): number {
+    public static SemiRandomTimeout(minimum: number, maximum: number, onDone: Function): Stopwatch {
         const delay = RandomnessHelper.getRandomInt(minimum, maximum);
         return TimeService.Timeout(delay, onDone);
     }
 
-    public static CreateTimer(): Stopwatch {
-        return new Stopwatch();
+    public static CreateCountdownTimer(timeout: number): CountdownTimer {
+        return new CountdownTimer(timeout);
     }
 
 }
