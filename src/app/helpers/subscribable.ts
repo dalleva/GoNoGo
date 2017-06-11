@@ -1,16 +1,22 @@
 //Inspired by : https://stackoverflow.com/a/14657922/6316091
-export class Subscribable<T> {
-    private handlers: ((data?: T) => void)[] = [];
+export abstract class Subscribable<T> {
+    private handlers: Handler<T>[] = [];
 
-    public on(handler: (data?: T) => void): void {
-        this.handlers.push(handler);
+    //TODO: Use enum of possible events rather than a string eventName
+    public on(eventName: string, callback: (data?: T) => void): void {
+        this.handlers.push({eventName, callback});
     }
 
-    public off(handler: (data?: T) => void): void {
-        this.handlers = this.handlers.filter(h => h !== handler);
+    public off(callback: (data?: T) => void): void {
+        this.handlers = this.handlers.filter(h => h.callback !== callback);
     }
 
-    protected trigger(data?: T) {
-        this.handlers.slice(0).forEach(h => h(data));
+    protected trigger(eventName: string, data?: T) {
+        this.handlers.slice(0).filter(h => h.eventName === eventName).forEach(h => h.callback(data));
     }
+}
+
+interface Handler<T> {
+    eventName: string;
+    callback: (data?: T) => void;
 }

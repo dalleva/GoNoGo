@@ -24,7 +24,7 @@ export class Stopwatch extends Subscribable<number> {
         this.interval = setInterval(() => {
             this.timeSpent++;
             if ((this.refreshRate * this.timeSpent) % this.triggerRate === 0) {
-                this.trigger(this.timeSpentInSeconds());
+                this.trigger('timeUpdate', this.timeSpentInSeconds());
             }
         }, this.refreshRate);
     }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HeaderDataState } from 'app/model/header-data-state.enum';
 import { SidebarState } from 'app/model/sidebar-state.enum';
-import { Button } from 'app/model/button.interface';
+import { Button } from 'app/model/button';
 
 @Injectable()
 export class UiDispatcherService {
@@ -38,5 +38,13 @@ export class UiDispatcherService {
 
     public addHeaderButton(button: Button): void {
         this.headerButtons.push(button);
+    }
+
+    public removeHeaderButton(button: Button): void {
+        this.headerButtons = this.headerButtons.filter((b: Button) => b !== button);
+    }
+
+    public removeHeaderButtons(): void {
+        this.headerButtons = [];
     }
 }

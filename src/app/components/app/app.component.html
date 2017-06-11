@@ -15,8 +15,8 @@
                 </form>
             </div>-->
             <div class="header-block header-block-buttons">
-                <button *ngFor="let button of HeaderButtons" [@fadeInOut] class="btn header-btn btn-sm">
-                    <i *ngIf="button.icon" [class]="button.icon"></i> <span>{{button.content}}</span>
+                <button *ngFor="let button of HeaderButtons" [@fadeInOut] (click)="button.trigger('click', $event)" class="btn header-btn btn-sm" [ngClass]="button.getStringCssClasses()">
+                    <i *ngIf="button.Properties.icon" [class]="button.Properties.icon"></i> <span>{{button.Properties.content}}</span>
                 </button>
             </div>
             <div class="header-block header-block-nav" [class.header-block-disabled]="HideHeaderData">

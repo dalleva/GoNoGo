@@ -9,6 +9,7 @@ import { Iterator, CollectionIterator } from 'app/helpers/iterator';
 import { ListShuffleHelper } from 'app/helpers/list-shuffle';
 import { AnswerState } from 'app/model/answer-state.enum';
 import { UiDispatcherService } from 'app/services/ui-dispatcher.service';
+import { Button } from 'app/model/button';
 
 @Component({
     selector: 'app-test-canvas',
@@ -22,6 +23,7 @@ export class TestCanvasComponent implements OnInit, OnDestroy {
     private isInTransition = false;
     private runningTimer: any; //TODO: Type, change any
     private testItems: Iterator<TestItem>;
+    private headerButtons: Button[];
     public testCanvas: TestCanvas;
 
     @HostListener('window:keydown', ['$event'])
@@ -44,8 +46,18 @@ export class TestCanvasComponent implements OnInit, OnDestroy {
 
     public ngOnInit(): void {
         this.uiDispatcherSevice.setDistractionFreeMode();
-        this.uiDispatcherSevice.addHeaderButton({ content: 'Pause', icon: 'fa fa-pause' });
-        this.uiDispatcherSevice.addHeaderButton({ content: 'Cancel', icon: 'fa fa-times' });
+
+        this.headerButtons = new Array();
+        this.headerButtons['pause'] = new Button({ content: 'Pause', icon: 'fa fa-pause' });
+        this.headerButtons['pause'].on('click', this.onPauseClicked);
+        this.headerButtons['cancel'] = new Button({ content: 'Cancel', icon: 'fa fa-times' });
+        this.headerButtons['cancel'].on('click', this.onCancelClicked);
+        this.headerButtons['resume'] = new Button({ content: 'Cancel', icon: 'fa fa-play' });
+        this.headerButtons['resume'].on('click', this.onResumeClicked);
+        this.uiDispatcherSevice.addHeaderButton(this.headerButtons['pause']);
+        this.uiDispatcherSevice.addHeaderButton(this.headerButtons['cancel']);
+        console.log('dispatcher', this.uiDispatcherSevice);
+
         const testId = this.route.snapshot.paramMap.get('id');
         this.testCanvasService.getTestById(testId).then(this.initializeTest);
     }
@@ -67,7 +79,7 @@ export class TestCanvasComponent implements OnInit, OnDestroy {
         this.testItems = new CollectionIterator(shuffledItems);
         this.displayFirstItem();
 
-        // this.initializeCountdown();
+        //this.initializeCountdown();
     }
 
     /*private initializeCountdown(): void {
@@ -156,5 +168,24 @@ export class TestCanvasComponent implements OnInit, OnDestroy {
         console.log('end of test');
         this.isInTransition = true;
         //TODO: Navigate to results page
+    }
+
+    private onPauseClicked(event: MouseEvent): void  {
+        console.log('Pause clicked', event, this.uiDispatcherSevice);
+        this.uiDispatcherSevice.removeHeaderButtons();
+        this.uiDispatcherSevice.addHeaderButton(this.headerButtons['resume']);
+        this.uiDispatcherSevice.addHeaderButton(this.headerButtons['cancel']);
+    }
+
+    private onResumeClicked(event: MouseEvent): void {
+        console.log('Resume clicked', event);
+        this.uiDispatcherSevice.removeHeaderButtons();
+        this.uiDispatcherSevice.addHeaderButton(this.headerButtons['pause']);
+        this.uiDispatcherSevice.addHeaderButton(this.headerButtons['cancel']);
+    }
+
+    private onCancelClicked(event: MouseEvent): void {
+        console.log('Cancel clicked', event);
+        this.endOfTest();
     }
 }

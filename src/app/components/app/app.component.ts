@@ -4,7 +4,7 @@ import { GlobalVariables } from 'global';
 import { NotificationsService, SimpleNotificationsComponent, Options as ToastOptions } from 'angular2-notifications';
 import { UiDispatcherService } from 'app/services/ui-dispatcher.service';
 import { SidebarState } from 'app/model/sidebar-state.enum';
-import { Button } from 'app/model/button.interface';
+import { Button } from 'app/model/button';
 import { HeaderDataState } from 'app/model/header-data-state.enum';
 
 @Component({
