@@ -22,7 +22,6 @@ export class Stopwatch extends Subscribable<number> {
     public start(): void {
         this.clear();
         this.interval = setInterval(() => {
-            //console.log('interval', this.ticks, (this.intervalRate * this.ticks) % this.triggerUpdateRate);
             this.ticks++;
             this.tryTriggerTimeUpdate();
         }, this.intervalRate);
@@ -89,7 +88,6 @@ export class CountdownTimer extends Stopwatch {
     }
 
     private tryTriggerDone(): void {
-        //console.log('try trigger done', (this.intervalRate * this.ticks), this.timeout);
         if ((this.intervalRate * this.ticks) >= this.timeout) {
             this.trigger('done', this.timespentInMilliseconds());
             this.stop();
