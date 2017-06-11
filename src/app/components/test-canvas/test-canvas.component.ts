@@ -25,6 +25,7 @@ export class TestCanvasComponent implements OnInit, OnDestroy {
     private testItems: Iterator<TestItem>;
     private headerButtons: Button[];
     public testCanvas: TestCanvas;
+    public overlayMessage: string;
 
     @HostListener('window:keydown', ['$event'])
     keyboardInput(event: KeyboardEvent) {
@@ -167,6 +168,7 @@ export class TestCanvasComponent implements OnInit, OnDestroy {
     private endOfTest(): void {
         console.log('end of test');
         this.isInTransition = true;
+        this.overlayMessage = 'Test done.';
         //TODO: Navigate to results page
     }
 

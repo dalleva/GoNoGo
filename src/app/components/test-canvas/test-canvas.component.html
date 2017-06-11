@@ -1,6 +1,9 @@
 <article class="content">
     <div class="container">
         <div class="row align-items-center mt-5">
+            <div>
+                {{overlayMessage}}
+            </div>
             <div class="col text-center test-image-container" [ngClass]="{'validAnswer': isValidAnswerState(), 'invalidAnswer': isInvalidAnswerState()}">
                 <img *ngIf="canDisplayImage()" [src]="CurrentImageUrl" alt="{{CurrentTestItem?.image.alt}}" class="img-fluid rounded" (click)="itemClicked($event)" />
             </div>
