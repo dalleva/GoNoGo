@@ -70,13 +70,13 @@ export class CountdownTimer extends Stopwatch {
 
     private computeOptimalIntervalRate(): number {
         // maximum interval possible with given minimum updates per second
-        let maximumInterval = 1000 / this.minimumUpdatesPerSecond;
+        const maximumInterval = 1000 / this.minimumUpdatesPerSecond;
 
         // example timeout = 1353 & maxInterval = 500, leftover = 353 so timeCoveredByInt. = 1000
-        let timeCoveredByIntegerNumberOfCycles = this.timeout - this.timeout % maximumInterval;
+        const timeCoveredByIntegerNumberOfCycles = this.timeout - this.timeout % maximumInterval;
 
         // ex timeout = 1353 & maxInterval = 500, numberOfCycles = 2 + 1 = 3
-        let numberOfCycles = Math.floor(timeCoveredByIntegerNumberOfCycles / maximumInterval) + 1;
+        const numberOfCycles = Math.floor(timeCoveredByIntegerNumberOfCycles / maximumInterval) + 1;
 
         // ex timeout = 1353 & maxInterval = 500, return 1353 / 3 = 451
         return this.timeout / numberOfCycles;
