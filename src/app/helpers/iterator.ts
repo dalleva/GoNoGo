@@ -4,6 +4,7 @@ export interface Iterator<T> {
     getCurrent(): T;
     next(): T;
     hasNext(): boolean;
+    reset(): void;
 }
 
 export class CollectionIterator<T> implements Iterator<T> {
@@ -30,5 +31,9 @@ export class CollectionIterator<T> implements Iterator<T> {
 
     public hasNext(): boolean {
         return this.position < this.collection.length - 1;
+    }
+
+    public reset(): void {
+        this.position = 0;
     }
 }
