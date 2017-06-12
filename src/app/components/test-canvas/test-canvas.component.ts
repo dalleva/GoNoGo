@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TestCanvasService } from 'app/services/test-canvas.service';
 import { TestCanvas } from 'app/model/test-canvas';
 import { TimeService } from 'app/services/time.service';
@@ -21,6 +21,7 @@ import { CountdownTimer, Stopwatch } from 'app/helpers/stopwatch';
 export class TestCanvasComponent implements OnInit, OnDestroy {
     private readonly startCountdown = 3;
     private readonly spaceKey = 32;
+    private testId: string;
     private isInTransition = false;
     private runningTimer: Stopwatch;
     private testItems: Iterator<TestItem>;
@@ -43,7 +44,8 @@ export class TestCanvasComponent implements OnInit, OnDestroy {
     constructor(
         private testCanvasService: TestCanvasService,
         private uiDispatcherSevice: UiDispatcherService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) { }
 
     public ngOnInit(): void {
@@ -61,8 +63,8 @@ export class TestCanvasComponent implements OnInit, OnDestroy {
         this.uiDispatcherSevice.addHeaderButton(this.headerButtons['pause']);
         this.uiDispatcherSevice.addHeaderButton(this.headerButtons['cancel']);
 
-        const testId = this.route.snapshot.paramMap.get('id');
-        this.testCanvasService.getTestById(testId).then(this.initializeTest);
+        this.testId = this.route.snapshot.paramMap.get('id');
+        this.testCanvasService.getTestById(this.testId).then(this.initializeTest);
     }
 
     public ngOnDestroy(): void {
@@ -174,6 +176,7 @@ export class TestCanvasComponent implements OnInit, OnDestroy {
         this.isInTransition = true;
         this.overlayMessage = 'Test done.';
         //TODO: Navigate to results page
+        this.router.navigate(['/test/' + this.testId + '/results']);
     }
 
     private onPauseClicked(event: MouseEvent): void  {

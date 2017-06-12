@@ -10,6 +10,7 @@ import { HomeComponent } from './components/home/home.component';
 import { TestCanvasComponent } from './components/test-canvas/test-canvas.component';
 import { TestItemComponent } from './components/test-item/test-item.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { TestResultsComponent } from './components/test-results/test-results.component';
 
 import { SimpleNotificationsModule, PushNotificationsModule } from 'angular2-notifications';
 
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
     { path: 'test/:id', component: TestCanvasComponent },
+    { path: 'test/:id/results', component: TestResultsComponent },
     { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -28,7 +30,8 @@ const appRoutes: Routes = [
         HomeComponent,
         TestCanvasComponent,
         TestItemComponent,
-        PageNotFoundComponent
+        PageNotFoundComponent,
+        TestResultsComponent
     ],
     imports: [
         RouterModule.forRoot(appRoutes, { useHash: true }),
